@@ -20,4 +20,3 @@ class Commentaire(Base):
 
     client = relationship("Client")
     ouvrage = relationship("Ouvrage")
-    # Assurez-vous que 'Client' et 'commentaires' correspondent à votre modèle et relation
