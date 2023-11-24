@@ -11,7 +11,7 @@ class Client(Base):
 
     # Colonne 'id_client' : Clé primaire, de type entier.
     id_client: Mapped[int] = mapped_column(primary_key=True)
-    # Colonne 'nom_client' : Nom du client, de type chaîne de caractères (max 255 caractères).
+    # Colonne 'nom_client' : Nom du cgit alient, de type chaîne de caractères (max 255 caractères).
     nom_client: Mapped[str] = mapped_column(String(255))
     # Colonne 'prenom_client' : Prénom du client, de type chaîne de caractères (max 255 caractères).
     prenom_client: Mapped[str] = mapped_column(String(255))
