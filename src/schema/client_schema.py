@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from typing import Optional
 
 class ClientSchema(BaseModel):
     nom_client: str
@@ -14,6 +14,14 @@ class ClientSchema(BaseModel):
         orm_mode = True
         from_attributes = True
 
+class PartialClientUpdate(BaseModel):
+    nom_client: Optional[str] = None
+    prenom_client: Optional[str] = None
+    email_client: Optional[str] = None
+    telephone_client: Optional[str] = None
+    preferences_client: Optional[str] = None
+    adresse_livraison_client: Optional[str] = None
+    adresse_facturation_client: Optional[str] = None
 
 class ClientSchemaIn(ClientSchema):
     pass

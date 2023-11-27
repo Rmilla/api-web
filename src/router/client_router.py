@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..models import Client
-from ..schema import ClientSchema, ClientSchemaOut
+from ..schema import ClientSchema, ClientSchemaOut, PartialClientUpdate
 from ..config import get_db
 
 
@@ -44,15 +44,16 @@ async def post_client(client_data: ClientSchema, session: Session = Depends(get_
 # Modifie les champs du client spécifié en utilisant les données fournies.
 
 
-@router.put("/update_client/{client_id}", response_model=ClientSchema, tags=["clients"])
-async def update_client(client_id: int, client_data: ClientSchema, session: Session = Depends(get_db)):
+@router.put("/update_client/{client_id}", response_model=ClientSchema, tags=["clients"], status_code=status.HTTP_200_OK)
+async def update_client(client_id: int, client_data: PartialClientUpdate, session: Session = Depends(get_db)):
     query = select(Client).where(Client.id_client == client_id)
     result = session.scalars(query).first()
     if result is None:
         raise HTTPException(status_code=404, detail="Client not found")
     for key, value in client_data.dict().items():
         if value is not None:
-            raise HTTPException(status_code=400, detail="Erreur modification")
+            setattr(result, key, value)
+    session.add(result)
     session.commit()
     return result
 
@@ -60,10 +61,10 @@ async def update_client(client_id: int, client_data: ClientSchema, session: Sess
 # Supprime le client spécifié de la base de données.
 
 
-@router.delete("/client/{client_id}", response_model=ClientSchema, tags=["clients"], status_code=status.HTTP_200_OK)
+@router.delete("/delete_client/{client_id}", response_model=ClientSchema, tags=["clients"], status_code=status.HTTP_200_OK)
 async def delete_client(client_id: int, session: Session = Depends(get_db)):
     query = select(Client).where(Client.id_client == client_id)
-    result = session.scalars(query).one()
+    result = session.scalars(query).first()
     delete_client = session.delete(result)
     if result is None:
         raise HTTPException(status_code=404, detail="Client not found")
