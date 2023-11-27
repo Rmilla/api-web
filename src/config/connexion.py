@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
-from config.base import Base
+from . import Base
 
 
 # connexion à la base de donnée

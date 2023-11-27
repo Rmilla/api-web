@@ -3,9 +3,9 @@ from fastapi import APIRouter
 from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from models.commentaire import Commentaire
-from schema.commentaire_schema import CommentaireSchema, CommentaireSchemaOut
-from config.connexion import get_db
+from ..models import Commentaire
+from ..schema import CommentaireSchema, CommentaireSchemaOut
+from ..config import get_db
 
 
 router = APIRouter()

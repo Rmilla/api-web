@@ -1,4 +1,4 @@
-from config.base import Base
+from ..config import Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text
 from sqlalchemy.orm import Session, Mapped, mapped_column, relationship
 from typing import Optional
@@ -24,5 +24,5 @@ class Commentaire(Base):
     # Colonne 'titre_commentaire' :  de type chaîne de caractères (max 255 caractères).
     titre_commentaire: Mapped[str] = mapped_column(String(255))
 
-    client = relationship("Client")
-    ouvrage = relationship("Ouvrage")
+    #client = relationship("Client")
+    #ouvrage = relationship("Ouvrage")
