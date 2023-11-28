@@ -25,7 +25,7 @@ async def get_client(client_id: int, session: Session = Depends(get_db)):
 # Renvoie une liste de clients en utilisant le schéma ClientSchema.
 
 
-@router.get("/client", response_model=List[ClientSchema], status_code=status.HTTP_200_OK)
+@router.get("/client", response_model=List[ClientSchema], tags=["clients"],status_code=status.HTTP_200_OK)
 async def get_all_client(session: Session = Depends(get_db)):
     return session.query(Client).all()
 
@@ -33,7 +33,7 @@ async def get_all_client(session: Session = Depends(get_db)):
 # Prend les données du client en entrée et les ajoute à la base de données.
 
 
-@router.post("/create_client", response_model=ClientSchemaOut, status_code=status.HTTP_201_CREATED, summary="Créer un client")
+@router.post("/create_client", response_model=ClientSchemaOut, tags=["clients"],status_code=status.HTTP_201_CREATED, summary="Créer un client")
 async def post_client(client_data: ClientSchema, session: Session = Depends(get_db)):
     client_db = Client(**client_data.dict())
     session.add(client_db)

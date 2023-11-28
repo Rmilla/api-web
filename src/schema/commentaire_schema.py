@@ -5,7 +5,6 @@ from typing import Optional
 
 
 class PartialCommentaireUpdate(BaseModel):
-    date_publication_commentaire: Optional[datetime] = None
     auteur_commentaire: Optional[str] = None
     titre_commentaire: Optional[str] = None
 
@@ -21,8 +20,9 @@ class CommentaireSchema(BaseModel):
 
 class CommentaireShemaIn(CommentaireSchema):
     id_client: int
-    id_ouvrage: int
+    #id_ouvrage: int
 
 
 class CommentaireSchemaOut(CommentaireSchema):
     id_commentaire: int
+    id_client: int

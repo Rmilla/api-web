@@ -1,7 +1,7 @@
 # from config.base import Base
 from ..config import Base
 from sqlalchemy import Column, Integer, String, Text
-from sqlalchemy.orm import Session, Mapped, mapped_column
+from sqlalchemy.orm import Session, Mapped, mapped_column, relationship
 from typing import Optional
 
 
@@ -26,3 +26,4 @@ class Client(Base):
         String(255), nullable=True)  # Colonne 'adresse_livraison_client' : Adresse de livraison du client, de type chaîne de caractères (max 255 caractères).
     adresse_facturation_client: Mapped[Optional[str]] = mapped_column(
         String(255), nullable=True)  # Colonne 'adresse_facturation_client' : Adresse de facturation du client, de type chaîne de caractères (max 255 caractères).
+    commentaire = relationship("Commentaire", back_populates="client")

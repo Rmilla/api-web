@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..models import Commentaire
-from ..schema import CommentaireSchema, CommentaireSchemaOut, PartialCommentaireUpdate
+from ..schema import CommentaireSchema, CommentaireSchemaOut ,CommentaireShemaIn , PartialCommentaireUpdate
 from ..config import get_db
 
 
@@ -13,7 +13,7 @@ router = APIRouter()
 
 # Route pour récupérer tous les commentaires.
 # Elle renvoie une liste de commentaires en utilisant le schéma CommentaireSchema.
-@router.get("/commentaire", response_model=List[CommentaireSchema], status_code=status.HTTP_200_OK)
+@router.get("/commentaire", response_model=List[CommentaireSchema],tags=["commentaire"], status_code=status.HTTP_200_OK)
 async def get_all_commentaire(session: Session = Depends(get_db)):
     return session.query(Commentaire).all()
 
@@ -21,7 +21,7 @@ async def get_all_commentaire(session: Session = Depends(get_db)):
 # Elle renvoie un commentaire unique qui correspond à l'ID fourni.
 
 
-@router.get("/commentaire/{commentaire_id}", response_model=CommentaireSchema, status_code=status.HTTP_200_OK)
+@router.get("/commentaire/{commentaire_id}", tags=["commentaire"],response_model=CommentaireSchema, status_code=status.HTTP_200_OK)
 async def get_commentaire(commentaire_id: int, session: Session = Depends(get_db)):
     query = select(Commentaire).where(
         Commentaire.id_commentaire == commentaire_id)
@@ -34,8 +34,8 @@ async def get_commentaire(commentaire_id: int, session: Session = Depends(get_db
 # Elle prend en entrée les données du commentaire et les ajoute à la base de données.
 
 
-@router.post("/create_commentaire", response_model=(CommentaireSchema), status_code=status.HTTP_201_CREATED)
-async def create_commentaire(commentaire_data: CommentaireSchema, session: Session = Depends(get_db)):
+@router.post("/create_commentaire", response_model=(CommentaireShemaIn), tags=["commentaire"],status_code=status.HTTP_201_CREATED)
+async def create_commentaire(commentaire_data: CommentaireShemaIn, session: Session = Depends(get_db)):
     commenatire_db = Commentaire(**commentaire_data.dict())
     session.add(commenatire_db)
     session.commit()
@@ -47,7 +47,7 @@ async def create_commentaire(commentaire_data: CommentaireSchema, session: Sessi
 # Elle supprime le commentaire spécifié de la base de données.
 
 
-@router.delete("/commentaire_delete/{commentaire_id}", response_model=(CommentaireSchema), status_code=status.HTTP_200_OK)
+@router.delete("/commentaire_delete/{commentaire_id}", response_model=(CommentaireSchema),tags=["commentaire"], status_code=status.HTTP_200_OK)
 async def delete_commentaire(commentaire_id: int, session: Session = Depends(get_db)):
     query = select(Commentaire).where(
         Commentaire.id_commentaire == commentaire_id)
@@ -61,7 +61,7 @@ async def delete_commentaire(commentaire_id: int, session: Session = Depends(get
 # Elle permet de modifier les champs du commentaire spécifié.
 
 
-@router.put("/update_commentaire/{commentaire_id}", response_model=(PartialCommentaireUpdate), status_code=status.HTTP_200_OK)
+@router.put("/update_commentaire/{commentaire_id}", response_model=(PartialCommentaireUpdate), tags=["commentaire"],status_code=status.HTTP_200_OK)
 async def update_commentaire(commentaire_id: int, commentaire_data: PartialCommentaireUpdate, session: Session = Depends(get_db)):
     query = select(Commentaire).where(
     Commentaire.id_commentaire == commentaire_id)

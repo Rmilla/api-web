@@ -10,12 +10,7 @@ from datetime import datetime
 class Commentaire(Base):
     __tablename__ = "t_commentaire"  # nommage de la table
 
-    id_commentaire: Mapped[int] = mapped_column(
-        primary_key=True)  # Création de l'id avec sa clé primaire
-    # Clé etrangère, récupérant l'id client
-    #id_client: Mapped[int] = mapped_column(ForeignKey("t.client.id_client"))
-    # Clé etrangère, récupérant l'id ouvrage
-    #id_ouvrage: Mapped[int] = mapped_column(ForeignKey("t_ouvrage.id_ouvrage"))
+    id_commentaire: Mapped[int] = mapped_column(primary_key=True)  # Création de l'id avec sa clé primaire
     # Création de la date publication avec comme attribut dateTime, pour les dates
     date_publication_commentaire: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow)
@@ -23,6 +18,8 @@ class Commentaire(Base):
     auteur_commentaire: Mapped[str] = mapped_column(String(255))
     # Colonne 'titre_commentaire' :  de type chaîne de caractères (max 255 caractères).
     titre_commentaire: Mapped[str] = mapped_column(String(255))
-
-    #client = relationship("Client")
-    #ouvrage = relationship("Ouvrage")
+    # Clé etrangère, récupérant l'id client
+    id_client: Mapped[int] = mapped_column(ForeignKey("t_client.id_client"))
+    client = relationship("Client", back_populates="commentaire")
+    # Clé etrangère, récupérant l'id ouvrage
+    #id_ouvrage: Mapped[int] = mapped_column(ForeignKey("t_ouvrage.id_ouvrage"))

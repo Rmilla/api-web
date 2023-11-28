@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
-from . import Base
+
+
 
 
 # connexion à la base de donnée
@@ -13,11 +14,8 @@ database = "Librairie"
 engine = create_engine(f"{connector}://{user}:{password}@{host}/{database}")
 
 
-Base.metadata.create_all(engine)
-
 SessionLocal = sessionmaker(
     autocommit=False, autoflush=False, bind=engine)
-
 # Fonction pour obtenir une session de base de données
 
 
