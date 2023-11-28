@@ -72,24 +72,24 @@ Avant de commencer, assurez-vous d'avoir les prérequis suivants installés sur 
 
 - Ouvrez votre terminal.
 - Clonez le dépôt du projet en utilisant la commande suivante :
-'''
+```
 git clone https://github.com/Rmilla/api-web.git
-'''
+```
 
 ### Installation des Dépendances
 
 - Installez les dépendances nécessaires en exécutant :
 
-'''
+```
 pip install -r requirements.txt
-'''
+```
 
 ### Lancement de l'Application
 
 - Une fois toutes les dépendances installées, lancez l'application en utilisant Uvicorn :
-'''
+```
 uvicorn src.main:app --reload
-'''
+```
 
 Cette commande démarre un serveur local et --reload permet au serveur de se recharger automatiquement en cas de modification du code.
 
