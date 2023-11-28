@@ -1,6 +1,13 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
+
+
+class PartialCommentaireUpdate(BaseModel):
+    date_publication_commentaire: Optional[datetime] = None
+    auteur_commentaire: Optional[str] = None
+    titre_commentaire: Optional[str] = None
 
 class CommentaireSchema(BaseModel):
     date_publication_commentaire: datetime

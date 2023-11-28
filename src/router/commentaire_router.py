@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..models import Commentaire
-from ..schema import CommentaireSchema, CommentaireSchemaOut
+from ..schema import CommentaireSchema, CommentaireSchemaOut, PartialCommentaireUpdate
 from ..config import get_db
 
 
@@ -61,14 +61,13 @@ async def delete_commentaire(commentaire_id: int, session: Session = Depends(get
 # Elle permet de modifier les champs du commentaire spécifié.
 
 
-@router.put("/commentaire/{commentaire_id}", response_model=(CommentaireSchema), status_code=status.HTTP_200_OK)
-async def update_commentaire(commentaire_id: int, commentaire_data: CommentaireSchema, session: Session = Depends(get_db)):
+@router.put("/update_commentaire/{commentaire_id}", response_model=(PartialCommentaireUpdate), status_code=status.HTTP_200_OK)
+async def update_commentaire(commentaire_id: int, commentaire_data: PartialCommentaireUpdate, session: Session = Depends(get_db)):
     query = select(Commentaire).where(
-        Commentaire.id_commentaire == commentaire_id)
+    Commentaire.id_commentaire == commentaire_id)
     result = session.scalars(query).first()
     if result is None:
         raise HTTPException(status_code=404, detail="Commentaire not found")
-
     for key, value in commentaire_data.dict().items():
         if value is not None:
             setattr(result, key, value)

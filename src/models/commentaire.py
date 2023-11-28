@@ -13,9 +13,9 @@ class Commentaire(Base):
     id_commentaire: Mapped[int] = mapped_column(
         primary_key=True)  # Création de l'id avec sa clé primaire
     # Clé etrangère, récupérant l'id client
-    id_client: Mapped[int] = mapped_column(ForeignKey("t.client.id_client"))
+    #id_client: Mapped[int] = mapped_column(ForeignKey("t.client.id_client"))
     # Clé etrangère, récupérant l'id ouvrage
-    id_ouvrage: Mapped[int] = mapped_column(ForeignKey("t_ouvrage.id_ouvrage"))
+    #id_ouvrage: Mapped[int] = mapped_column(ForeignKey("t_ouvrage.id_ouvrage"))
     # Création de la date publication avec comme attribut dateTime, pour les dates
     date_publication_commentaire: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow)
