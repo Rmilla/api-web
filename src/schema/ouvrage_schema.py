@@ -1,13 +1,12 @@
 from pydantic import BaseModel
-from sqlalchemy import DECIMAL
+from decimal import Decimal
 
 class OuvrageCreate(BaseModel):
-    id_ouvrage: int
     titre_ouvrage: str
     auteur_ouvrage : str
     isbn_ouvrage: str
     langue_ouvrage: str
-    prix_ouvrage: DECIMAL
+    prix_ouvrage: Decimal
     date_parution_ouvrage: str
     categorie_ouvrage: str
     date_disponibilite_libraire_ouvrage: str
@@ -18,12 +17,11 @@ class OuvrageCreate(BaseModel):
     description_ouvrage: str
 
 class OuvrageUpdate(BaseModel):
-    id_ouvrage: int
     titre_ouvrage: str
     auteur_ouvrage : str
     isbn_ouvrage: str
     langue_ouvrage: str
-    prix_ouvrage: DECIMAL
+    prix_ouvrage: Decimal
     date_parution_ouvrage: str
     categorie_ouvrage: str
     date_disponibilite_libraire_ouvrage: str
@@ -39,7 +37,7 @@ class OuvrageResponse(BaseModel):
     auteur_ouvrage : str
     isbn_ouvrage: str
     langue_ouvrage: str
-    prix_ouvrage: DECIMAL
+    prix_ouvrage: Decimal
     date_parution_ouvrage: str
     categorie_ouvrage: str
     date_disponibilite_libraire_ouvrage: str

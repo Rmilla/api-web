@@ -1,9 +1,10 @@
 import os
 import sys
-print(sys.path)
+
 # Add the root directory of the project to sys.path
-parent_dir = r"d:/Projet_API/api-web/src/"
-sys.path.append(os.path.abspath(parent_dir))
+current_dir = os.path.dirname(os.path.realpath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 
 from fastapi import FastAPI
 from router.ouvrage_router import ouvrage_router
