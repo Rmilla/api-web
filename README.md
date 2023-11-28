@@ -62,9 +62,39 @@ nom_projet/
 ## Installation 
 Suivez ces étapes pour installer et exécuter le projet sur votre machine locale pour des fins de développement et de test.
 
-# Prérequis
+### Prérequis
 Avant de commencer, assurez-vous d'avoir les prérequis suivants installés sur votre machine :
 
 - Python (version recommandée : 3.8 ou ultérieure)
 - Git (pour cloner le dépôt)
 
+### Clonage du Projet
+
+- Ouvrez votre terminal.
+- Clonez le dépôt du projet en utilisant la commande suivante :
+'''
+git clone https://github.com/Rmilla/api-web.git
+'''
+
+### Installation des Dépendances
+
+- Installez les dépendances nécessaires en exécutant :
+
+'''
+pip install -r requirements.txt
+'''
+
+### Lancement de l'Application
+
+- Une fois toutes les dépendances installées, lancez l'application en utilisant Uvicorn :
+'''
+uvicorn src.main:app --reload
+'''
+
+Cette commande démarre un serveur local et --reload permet au serveur de se recharger automatiquement en cas de modification du code.
+
+### Accès à l'Application
+
+- Ouvrez votre navigateur et accédez à http://localhost:8000. Vous devriez voir la page d'accueil de votre API.
+
+- La documentation générée par FastAPI est accessible à http://localhost:8000/docs pour Swagger UI
