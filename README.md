@@ -59,3 +59,12 @@ nom_projet/
 - Dossier routes : Définit les points de terminaison de l'API et leur logique associée.
 - Dossier schemas : Schémas Pydantic pour la validation et la sérialisation des données.
 
+## Installation 
+Suivez ces étapes pour installer et exécuter le projet sur votre machine locale pour des fins de développement et de test.
+
+# Prérequis
+Avant de commencer, assurez-vous d'avoir les prérequis suivants installés sur votre machine :
+
+- Python (version recommandée : 3.8 ou ultérieure)
+- Git (pour cloner le dépôt)
+
