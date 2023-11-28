@@ -3,12 +3,12 @@ import sys
 
 # Add the root directory of the project to sys.path
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+parent_dir = "D:\Projet_API\api-web\src" 
+os.path.dirname(SCRIPT_DIR)
+sys.path.append(parent_dir)
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from ..models.ouvrage import *
-from ..schema.ouvrage_schema import *
-from main import app
+from src.schema.ouvrage_schema import *
 from typing import List
 ouvrage_router = APIRouter()
 
@@ -17,6 +17,7 @@ fake_db: List[OuvrageResponse] = []
 
 @ouvrage_router.post("/models/ouvrage", response_model=OuvrageResponse, status_code=201, tags=["ouvrage"])
 async def create_item(ouvrage_create: OuvrageCreate):
+
     # Générez l'ID de manière fictive (en utilisant la taille actuelle du tableau + 1)
     id_ouvrage = len(fake_db) + 1
     item = OuvrageResponse(id=id_ouvrage, **ouvrage_create.dict())
