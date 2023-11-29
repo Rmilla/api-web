@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-# connexion à la base de donnée
 connector = "mysql+pymysql"
 user = "root"
 password = "root"
@@ -9,10 +8,16 @@ host = "localhost"
 database = "librairie"
 
 engine = create_engine(f"{connector}://{user}:{password}@{host}/{database}")
-conn = engine.connect()
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# créer les tables
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 class Base(DeclarativeBase):
     pass
 
-Base.metadata.create_all(engine)
+Base.metadata.create_all(bind=engine)
