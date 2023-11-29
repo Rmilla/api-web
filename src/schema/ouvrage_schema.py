@@ -18,7 +18,6 @@ class OuvrageCreate(BaseModel):
     description_ouvrage: str
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
@@ -38,7 +37,6 @@ class OuvrageUpdate(BaseModel):
     description_ouvrage: str
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
@@ -59,5 +57,4 @@ class OuvrageResponse(BaseModel):
     description_ouvrage: str
 
     class Config:
-        orm_mode = True
         from_attributes = True

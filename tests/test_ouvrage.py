@@ -1,3 +1,5 @@
+
+
 from fastapi.testclient import TestClient
 import unittest
 from datetime import datetime
@@ -7,7 +9,6 @@ import os
 current_dir = os.path.dirname(os.path.realpath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
-
 from src.main import app
 
 class TestFastAPIRoutes(unittest.TestCase):
@@ -16,7 +17,7 @@ class TestFastAPIRoutes(unittest.TestCase):
 
     def test_create_ouvrage(self):
         new_ouvrage_data = {
-            "id_ouvrage": 0
+            "id_ouvrage": 0,
             "titre_ouvrage": "string",
             "auteur_ouvrage": "string",
             "isbn_ouvrage": "string",
@@ -39,7 +40,6 @@ class TestFastAPIRoutes(unittest.TestCase):
         response = self.client.patch(
             "/models/ouvrage/1", json={"titre_ouvrage": "Updated Title"})
         ouvrage_data = {
-            "id_ouvrage": 0
             "titre_ouvrage": "Updated Title",
             "auteur_ouvrage": "string",
             "isbn_ouvrage": "string",

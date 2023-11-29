@@ -20,11 +20,11 @@ class TestFastAPIRoutes(unittest.TestCase):
 
     def test_read_item(self):
         response = self.client.get(
-            "/commentaire/1")
+            "/commentaire/3")
         # Vérification des données reçues.
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {
-            "date_publication_commentaire": "2023-11-29T11:27:18", "auteur_commentaire": "Le meilleur", "titre_commentaire": "Incroyable"
+            "date_publication_commentaire": "2023-11-29T17:26:35", "auteur_commentaire": "Test create", "titre_commentaire": "Test create"
         })
     # Test de la lecture de tout les commentaires.
 
@@ -78,7 +78,7 @@ class TestFastAPIRoutes(unittest.TestCase):
         }
         # Envoi d'une requête PUT pour mettre à jour les données du commentaire 2.
         response = self.client.put(
-            "/update_commentaire/2", json=client_data_update)
+            "/update_commentaire/3", json=client_data_update)
         # Vérification de la mise à jour des données.
         self.assertEqual(response.status_code, 200)
         response_data = response.json()

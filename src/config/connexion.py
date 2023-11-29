@@ -6,7 +6,7 @@ connector = "mysql+pymysql"
 user = "root"
 password = "root"
 host = "localhost"
-database = "api"
+database = "API"
 
 engine = create_engine(f"{connector}://{user}:{password}@{host}/{database}")
 

@@ -14,7 +14,6 @@ class CommentaireSchema(BaseModel):
     titre_commentaire: str
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
