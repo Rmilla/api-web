@@ -3,7 +3,6 @@ from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 from src.models.base import Base
 from src.models.ouvrage import Ouvrage
 
-# connexion à la base de donnée
 connector = "mysql+pymysql"
 user = "root"
 password = "root"
@@ -11,15 +10,16 @@ host = "localhost"
 database = "librairie"
 
 engine = create_engine(f"{connector}://{user}:{password}@{host}/{database}")
-conn = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# créer les tables
-Base.metadata.create_all(engine)
-
-async def get_db() -> Session:
-    session = conn()
+def get_db():
+    db = SessionLocal()
     try:
-        yield session
+        yield db
     finally:
-        session.close()
-        
+        db.close()
+
+class Base(DeclarativeBase):
+    pass
+
+Base.metadata.create_all(bind=engine)
