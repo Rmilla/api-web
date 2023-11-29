@@ -1,3 +1,4 @@
+
 from fastapi.testclient import TestClient
 import unittest
 from datetime import datetime
@@ -9,7 +10,6 @@ import os
 current_dir = os.path.dirname(os.path.realpath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
-
 from src.main import app
 
 class TestFastAPIRoutes(unittest.TestCase):
@@ -24,7 +24,7 @@ class TestFastAPIRoutes(unittest.TestCase):
         # Vérification des données reçues.
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {
-            "date_publication_commentaire": "2023-11-28T11:35:53", "auteur_commentaire": "Test create", "titre_commentaire": "Test create"
+            "date_publication_commentaire": "2023-11-29T11:27:18", "auteur_commentaire": "Le meilleur", "titre_commentaire": "Incroyable"
         })
     # Test de la lecture de tout les commentaires.
 
@@ -44,7 +44,9 @@ class TestFastAPIRoutes(unittest.TestCase):
             "date_publication_commentaire": formatted_datetime,
             "auteur_commentaire": "Test create",
             "titre_commentaire": "Test create",
-            "id_client": 6
+            "id_client": 2,
+            "id_ouvrage": 1
+            
 
         }
         # Envoi d'une requête POST à l'API pour créer un commentaire.

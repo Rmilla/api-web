@@ -2,8 +2,8 @@ from typing import List
 from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from ..models import theme, theme_ouvrage
-from ..schema import ThemeSchema, ThemeSchemaOut, PartialThemeUpdate, ThemeOuvrageSchemaOut, PartialThemeOuvrageUpdate
+from ..models import Theme, ThemeOuvrage
+from ..schema import ThemeSchema, ThemeSchemaOut
 from ..config import get_db
 
 
@@ -14,8 +14,8 @@ router = APIRouter()
 
 
 @router.get("/theme/{theme_id}", response_model=ThemeSchema, tags=["thèmes"], status_code=status.HTTP_200_OK)
-async def get_theme(theme_id: int, session: Session = Depends(get_db)):
-    query = select(theme).where(theme.id_theme == theme_id)
+async def get_theme(id_theme: int, session: Session = Depends(get_db)):
+    query = select(Theme).where(Theme.theme_id == id_theme)
     result = session.scalars(query).one()
     if result is None:
         raise HTTPException(status_code=404, detail="Thème non trouvé")
@@ -27,15 +27,15 @@ async def get_theme(theme_id: int, session: Session = Depends(get_db)):
 
 @router.get("/theme", response_model=List[ThemeSchema], tags=["thèmes"], status_code=status.HTTP_200_OK)
 async def get_all_theme(session: Session = Depends(get_db)):
-    return session.query(theme).all()
+    return session.query(Theme).all()
 
 # Route pour créer un nouveau thème.
 # Prend les données du thème en entrée et les ajoute à la base de données.
 
 
-@router.post("/create_theme", response_model=ThemeSchemaOut, tags=["thèmes"], status_code=status.HTTP_201_CREATED, summary="Créer un thème")
-async def post_theme(theme_data: ThemeSchema, session: Session = Depends(get_db)):
-    theme_db = theme(**theme_data.dict())
+@router.post("/create_theme", response_model=ThemeSchema, tags=["thèmes"], status_code=status.HTTP_201_CREATED, summary="Créer un thème")
+async def post_theme(theme_data: ThemeSchemaOut, session: Session = Depends(get_db)):
+    theme_db = Theme(**theme_data.dict())
     session.add(theme_db)
     session.commit()
     return ThemeSchemaOut.from_orm(theme_db)
@@ -45,8 +45,8 @@ async def post_theme(theme_data: ThemeSchema, session: Session = Depends(get_db)
 
 
 @router.put("/update_theme/{theme_id}", response_model=ThemeSchema, tags=["thèmes"], status_code=status.HTTP_200_OK)
-async def update_theme(theme_id: int, theme_data: PartialThemeUpdate, session: Session = Depends(get_db)):
-    query = select(theme).where(theme.id_theme == theme_id)
+async def update_theme(id_theme: int, theme_data: ThemeSchema, session: Session = Depends(get_db)):
+    query = select(Theme).where(Theme.theme_id == id_theme)
     result = session.scalars(query).first()
     if result is None:
         raise HTTPException(status_code=404, detail="Thème non trouvé")
@@ -62,8 +62,8 @@ async def update_theme(theme_id: int, theme_data: PartialThemeUpdate, session: S
 
 
 @router.delete("/delete_theme/{theme_id}", response_model=ThemeSchema, tags=["thèmes"], status_code=status.HTTP_200_OK)
-async def delete_theme(theme_id: int, session: Session = Depends(get_db)):
-    query = select(theme).where(theme.id_theme == theme_id)
+async def delete_theme(id_theme: int, session: Session = Depends(get_db)):
+    query = select(Theme).where(Theme.theme_id == id_theme)
     result = session.scalars(query).first()
     delete_theme = session.delete(result)
     if result is None:

@@ -1,1 +1,1 @@
-from router import *
+from .routes import get_route

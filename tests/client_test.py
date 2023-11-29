@@ -1,3 +1,4 @@
+
 from fastapi.testclient import TestClient
 import unittest
 
@@ -11,7 +12,6 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 from src.main import app
-
 class TestFastAPIRoutes(unittest.TestCase):
     def setUp(self):
         self.client = TestClient(app)

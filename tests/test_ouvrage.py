@@ -1,12 +1,22 @@
 from fastapi.testclient import TestClient
-from src.main import app
 import unittest
+from datetime import datetime
+
+import sys
+import os
+current_dir = os.path.dirname(os.path.realpath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
+from src.main import app
+
 class TestFastAPIRoutes(unittest.TestCase):
     def setUp(self):
         self.client = TestClient(app)
+
     def test_create_ouvrage(self):
         new_ouvrage_data = {
-            "id_ouvrage": 0,
+            "id_ouvrage": 0
             "titre_ouvrage": "string",
             "auteur_ouvrage": "string",
             "isbn_ouvrage": "string",
@@ -26,9 +36,10 @@ class TestFastAPIRoutes(unittest.TestCase):
         assert response.json == new_ouvrage_data
 
     def test_update_ouvrage(self):
-        response = self.client.patch("/models/ouvrage/1", json={"titre_ouvrage": "Updated Title"})
+        response = self.client.patch(
+            "/models/ouvrage/1", json={"titre_ouvrage": "Updated Title"})
         ouvrage_data = {
-            "id_ouvrage": 0,
+            "id_ouvrage": 0
             "titre_ouvrage": "Updated Title",
             "auteur_ouvrage": "string",
             "isbn_ouvrage": "string",
@@ -57,21 +68,20 @@ class TestFastAPIRoutes(unittest.TestCase):
         assert response.status_code == 200
         assert len(response.json()) > 0
 
-
-
     def test_read_ouvrage(self):
         response = self.client.get("/models/ouvrage/1")
 
         assert response.status_code == 200
         assert response.json()["id"] == 1
 
-        response = self.client.get("/models/ouvrage/", params={"titre_ouvrage": "Example Title"})
+        response = self.client.get(
+            "/models/ouvrage/", params={"titre_ouvrage": "Example Title"})
 
         assert response.status_code == 200
-        assert response.json()["titre_ouvrage"] == "Example Title" 
+        assert response.json()["titre_ouvrage"] == "Example Title"
 
-        response = self.client.get("/models/ouvrage/", params={"isbn_ouvrage": "1234"})
+        response = self.client.get(
+            "/models/ouvrage/", params={"isbn_ouvrage": "1234"})
 
         assert response.status_code == 200
-        assert response.json()["isbn_ouvrage"] == "1234" 
-
+        assert response.json()["isbn_ouvrage"] == "1234"

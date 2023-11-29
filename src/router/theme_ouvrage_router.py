@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..models import theme, theme_ouvrage
-from ..schema import ThemeOuvrageSchemaOut, PartialThemeOuvrageUpdate
+from ..schema import ThemeOuvrageSchemaOut, ThemeOuvrageSchema
 from ..config import get_db
 
 
@@ -21,5 +21,6 @@ async def get_theme_ouvrage(ouvrage_id: int, theme_id: int, session: Session = D
     )
     result = session.scalars(query).one()
     if result is None:
-        raise HTTPException(status_code=404, detail="Relation thème-ouvrage non trouvée")
+        raise HTTPException(
+            status_code=404, detail="Relation thème-ouvrage non trouvée")
     return result
